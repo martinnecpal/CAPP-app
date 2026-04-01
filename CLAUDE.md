@@ -21,7 +21,7 @@ No test or lint commands are defined.
 ## Deployment
 
 - **GitHub:** `git@github.com:martinnecpal/CAPP-app.git` (branch `main`)
-- **Vercel:** https://project-1nkqh.vercel.app (project `stuba/project-1nkqh`)
+- **Vercel:** https://project-capp.vercel.app (project `stuba/project-capp`)
 - Vercel is configured via [vercel.json](vercel.json) to build with `npm run build` and serve `dist/public/` as a static SPA. The Express server bundle (`dist/index.cjs`) is **not** used on Vercel — the frontend talks directly to Supabase.
 - Required Vercel env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (set for all environments).
 - To deploy: `vercel --prod`. Git integration is not yet configured — deploys are manual via CLI.
