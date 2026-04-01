@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'wouter';
 import { useAuth } from '@/lib/authContext';
+import { useTheme, type AppTheme } from '@/lib/themeContext';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard, Package, Layers, Settings2, Wrench,
@@ -7,6 +8,14 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+const THEMES: { value: AppTheme; label: string; color: string }[] = [
+  { value: 'green', label: 'Zelená',  color: 'hsl(183 99% 22%)' },
+  { value: 'blue',  label: 'Modrá',   color: 'hsl(221 83% 53%)' },
+  { value: 'red',   label: 'Červená', color: 'hsl(0 72% 51%)'   },
+  { value: 'gray',  label: 'Sivá',    color: 'hsl(215 16% 37%)' },
+];
 
 const navItems = [
   { href: '/',         label: 'Dashboard',   icon: LayoutDashboard },
@@ -32,6 +41,7 @@ const roleBadgeVariant: Record<string, 'default' | 'secondary' | 'outline'> = {
 export default function Sidebar() {
   const [location] = useLocation();
   const { profile, signOut } = useAuth();
+  const { theme, setTheme } = useTheme();
 
   return (
     <aside className="flex flex-col h-full w-56 bg-card border-r border-border">
@@ -82,16 +92,42 @@ export default function Sidebar() {
             </Badge>
           )}
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start text-muted-foreground hover:text-destructive"
-          onClick={signOut}
-          data-testid="button-logout"
-        >
-          <LogOut size={14} className="mr-2" />
-          Odhlásiť sa
-        </Button>
+        <div className="flex gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="flex-1 justify-start text-muted-foreground hover:text-destructive"
+            onClick={signOut}
+            data-testid="button-logout"
+          >
+            <LogOut size={14} className="mr-2" />
+            Odhlásiť sa
+          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="sm" className="px-2 text-muted-foreground">
+                <Settings2 size={14} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent side="top" align="end" className="w-44 p-3">
+              <p className="text-xs font-medium text-muted-foreground mb-2">Farebná téma</p>
+              <div className="grid grid-cols-4 gap-2">
+                {THEMES.map(t => (
+                  <button
+                    key={t.value}
+                    title={t.label}
+                    onClick={() => setTheme(t.value)}
+                    className={cn(
+                      'w-8 h-8 rounded-full ring-offset-2 transition-all',
+                      theme === t.value ? 'ring-2 ring-foreground' : 'hover:scale-110'
+                    )}
+                    style={{ background: t.color }}
+                  />
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </aside>
   );

@@ -54,6 +54,52 @@
   html, body { height: 100%; overflow: hidden; margin: 0; }
 }
 
+/* ── Colour themes (override --primary, --ring, --accent) ── */
+:root[data-theme="blue"] {
+  --primary:            221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               221 83% 53%;
+  --accent:             221 40% 92%;
+  --accent-foreground:  221 83% 35%;
+}
+:root[data-theme="blue"].dark {
+  --primary:            217 91% 60%;
+  --primary-foreground: 221 83% 10%;
+  --ring:               217 91% 60%;
+  --accent:             221 30% 18%;
+  --accent-foreground:  217 91% 70%;
+}
+
+:root[data-theme="red"] {
+  --primary:            0 72% 51%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               0 72% 51%;
+  --accent:             0 40% 92%;
+  --accent-foreground:  0 72% 38%;
+}
+:root[data-theme="red"].dark {
+  --primary:            0 84% 60%;
+  --primary-foreground: 0 72% 10%;
+  --ring:               0 84% 60%;
+  --accent:             0 30% 18%;
+  --accent-foreground:  0 84% 70%;
+}
+
+:root[data-theme="gray"] {
+  --primary:            215 16% 37%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               215 16% 37%;
+  --accent:             215 16% 90%;
+  --accent-foreground:  215 16% 25%;
+}
+:root[data-theme="gray"].dark {
+  --primary:            215 20% 55%;
+  --primary-foreground: 215 16% 10%;
+  --ring:               215 20% 55%;
+  --accent:             215 16% 20%;
+  --accent-foreground:  215 20% 70%;
+}
+
 /* ── Dashboard layout ── */
 .dashboard {
   display: grid;
